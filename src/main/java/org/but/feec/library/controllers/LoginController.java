@@ -22,7 +22,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.but.feec.library.App;
 import org.but.feec.library.data.PersonRepository;
+import org.but.feec.library.exceptions.DataAccessException;
+import org.but.feec.library.exceptions.ExceptionHandler;
+import org.but.feec.library.exceptions.ResourceNotFoundException;
 import org.but.feec.library.services.AuthService;
 import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
@@ -99,37 +103,37 @@ public class LoginController {
         String username = usernameTextfield.getText();
         String password = passwordTextField.getText();
 
-//        try {
-//            boolean authenticated = authService.authenticate(username, password);
-//            if (authenticated) {
-//                showPersonsView();
-//            } else {
-//                showInvalidPaswordDialog();
-//            }
-//        } catch (ResourceNotFoundException | DataAccessException e) {
-//            showInvalidPaswordDialog();
-//        }
+        try {
+            boolean authenticated = authService.authenticate(username, password);
+            if (authenticated) {
+                showPersonsView();
+            } else {
+                showInvalidPaswordDialog();
+            }
+        } catch (ResourceNotFoundException | DataAccessException e) {
+            showInvalidPaswordDialog();
+        }
     }
 
     private void showPersonsView() {
-//        try {
-//            FXMLLoader fxmlLoader = new FXMLLoader();
-//            fxmlLoader.setLocation(App.class.getResource("fxml/Persons.fxml"));
-//            Scene scene = new Scene(fxmlLoader.load(), 1050, 600);
-//            Stage stage = new Stage();
-//            stage.setTitle("BDS JavaFX Demo App");
-//            stage.setScene(scene);
-//
-//            Stage stageOld = (Stage) signInButton.getScene().getWindow();
-//            stageOld.close();
-//
-//            stage.getIcons().add(new Image(App.class.getResourceAsStream("logos/vut.jpg")));
-//            authConfirmDialog();
-//
-//            stage.show();
-//        } catch (IOException ex) {
-//            ExceptionHandler.handleException(ex);
-//        }
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(App.class.getResource("fxml/Persons.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 1050, 600);
+            Stage stage = new Stage();
+            stage.setTitle("BDS JavaFX Demo App");
+            stage.setScene(scene);
+
+            Stage stageOld = (Stage) signInButton.getScene().getWindow();
+            stageOld.close();
+
+            stage.getIcons().add(new Image(App.class.getResourceAsStream("logos/vut.jpg")));
+            authConfirmDialog();
+
+            stage.show();
+        } catch (IOException ex) {
+            ExceptionHandler.handleException(ex);
+        }
     }
 
     private void showInvalidPaswordDialog() {
