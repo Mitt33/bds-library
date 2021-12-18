@@ -2,6 +2,8 @@ package org.but.feec.library.data;
 
 
 import org.but.feec.library.api.PersonAuthView;
+import org.but.feec.library.api.PersonBasicView;
+import org.but.feec.library.api.PersonDetailView;
 import org.but.feec.library.config.DataSourceConfig;
 import org.but.feec.library.exceptions.DataAccessException;
 
@@ -15,7 +17,7 @@ public class PersonRepository {
         try (Connection connection = DataSourceConfig.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "SELECT email, pwd" +
-                             " FROM bds.person p" +
+                             " FROM library.person p" +
                              " WHERE p.email = ?")
 
         ) {
@@ -31,47 +33,50 @@ public class PersonRepository {
         return null;
     }
 
-//    public PersonDetailView findPersonDetailedView(Long personId) {
-//        try (Connection connection = DataSourceConfig.getConnection();
-//             PreparedStatement preparedStatement = connection.prepareStatement(
-//                     "SELECT id_person, email, first_name, surname, nickname, city, house_number, street" +
-//                             " FROM bds.person p" +
+    public PersonDetailView findPersonDetailedView(Long personId) {
+        try (Connection connection = DataSourceConfig.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(
+                     "SELECT book_id, isbn, book_title" +
+                             " FROM library.book p" )
+//                             +
 //                             " LEFT JOIN bds.address a ON p.id_address = a.id_address" +
 //                             " WHERE p.id_person = ?")
-//        ) {
-//            preparedStatement.setLong(1, personId);
-//            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-//                if (resultSet.next()) {
-//                    return mapToPersonDetailView(resultSet);
-//                }
-//            }
-//        } catch (SQLException e) {
-//            throw new DataAccessException("Find person by ID with addresses failed.", e);
-//        }
-//        return null;
-//    }
+        ) {
+            preparedStatement.setLong(1, personId);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return mapToPersonDetailView(resultSet);
+                }
+            }
+        } catch (SQLException e) {
+            throw new DataAccessException("Find person by ID with addresses failed.", e);
+        }
+        return null;
+    }
 
     /**
      * What will happen if we do not use LEFT JOIN? What persons will be returned? Ask your self and repeat JOIN from the presentations
      *
      * @return list of persons
      */
-//    public List<PersonBasicView> getPersonsBasicView() {
-//        try (Connection connection = DataSourceConfig.getConnection();
-//             PreparedStatement preparedStatement = connection.prepareStatement(
-//                     "SELECT id_person, email, first_name, surname, nickname, city" +
+    public List<PersonBasicView> getPersonsBasicView() {
+        try (Connection connection = DataSourceConfig.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(
+                     "SELECT book_id, isbn, book_title, date_published" +
+                             " FROM library.book p" );
+//             "SELECT id_person, email, first_name, surname, nickname, city" +
 //                             " FROM bds.person p" +
 //                             " LEFT JOIN bds.address a ON p.id_address = a.id_address");
-//             ResultSet resultSet = preparedStatement.executeQuery();) {
-//            List<PersonBasicView> personBasicViews = new ArrayList<>();
-//            while (resultSet.next()) {
-//                personBasicViews.add(mapToPersonBasicView(resultSet));
-//            }
-//            return personBasicViews;
-//        } catch (SQLException e) {
-//            throw new DataAccessException("Persons basic view could not be loaded.", e);
-//        }
-//    }
+             ResultSet resultSet = preparedStatement.executeQuery();) {
+            List<PersonBasicView> personBasicViews = new ArrayList<>();
+            while (resultSet.next()) {
+                personBasicViews.add(mapToPersonBasicView(resultSet));
+            }
+            return personBasicViews;
+        } catch (SQLException e) {
+            throw new DataAccessException("Persons basic view could not be loaded.", e);
+        }
+    }
 
 //    public void createPerson(PersonCreateView personCreateView) {
 //        String insertPersonSQL = "INSERT INTO bds.person (email, first_name, nickname, pwd, surname) VALUES (?,?,?,?,?)";
@@ -150,27 +155,28 @@ public class PersonRepository {
         return person;
     }
 
-//    private PersonBasicView mapToPersonBasicView(ResultSet rs) throws SQLException {
-//        PersonBasicView personBasicView = new PersonBasicView();
-//        personBasicView.setId(rs.getLong("id_person"));
-//        personBasicView.setEmail(rs.getString("email"));
-//        personBasicView.setGivenName(rs.getString("first_name"));
-//        personBasicView.setFamilyName(rs.getString("surname"));
+
+    private PersonBasicView mapToPersonBasicView(ResultSet rs) throws SQLException {
+        PersonBasicView personBasicView = new PersonBasicView();
+        personBasicView.setId(rs.getLong("book_id"));
+        personBasicView.setIsbn(rs.getLong("isbn"));
+        personBasicView.setGivenName(rs.getString("book_title"));
+ //       personBasicView.setFamilyName(rs.getString("date_published"));
 //        personBasicView.setNickname(rs.getString("nickname"));
 //        personBasicView.setCity(rs.getString("city"));
-//        return personBasicView;
-//    }
+        return personBasicView;
+    }
 
-//    private PersonDetailView mapToPersonDetailView(ResultSet rs) throws SQLException {
-//        PersonDetailView personDetailView = new PersonDetailView();
-//        personDetailView.setId(rs.getLong("id_person"));
-//        personDetailView.setEmail(rs.getString("email"));
-//        personDetailView.setGivenName(rs.getString("first_name"));
-//        personDetailView.setFamilyName(rs.getString("surname"));
+    private PersonDetailView mapToPersonDetailView(ResultSet rs) throws SQLException {
+        PersonDetailView personDetailView = new PersonDetailView();
+        personDetailView.setId(rs.getLong("book_id"));
+        personDetailView.setIsbn(rs.getLong("isbn"));
+        personDetailView.setGivenName(rs.getString("book_title"));
+ //       personDetailView.setFamilyName(rs.getString("date_published"));
 //        personDetailView.setNickname(rs.getString("nickname"));
 //        personDetailView.setCity(rs.getString("city"));
 //        personDetailView.sethouseNumber(rs.getString("house_number"));
 //        personDetailView.setStreet(rs.getString("street"));
-//        return personDetailView;
-//    }
+        return personDetailView;
+    }
 }

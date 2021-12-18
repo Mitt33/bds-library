@@ -127,7 +127,7 @@ public class LoginController {
             Stage stageOld = (Stage) signInButton.getScene().getWindow();
             stageOld.close();
 
-            stage.getIcons().add(new Image(App.class.getResourceAsStream("logos/vut.jpg")));
+            //stage.getIcons().add(new Image(App.class.getResourceAsStream("logos/vut.jpg")));
             authConfirmDialog();
 
             stage.show();

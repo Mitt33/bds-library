@@ -1,5 +1,7 @@
 package org.but.feec.library.services;
 
+import org.but.feec.library.api.PersonBasicView;
+import org.but.feec.library.api.PersonDetailView;
 import org.but.feec.library.data.PersonRepository;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
@@ -13,13 +15,13 @@ public class PersonService {
         this.personRepository = personRepository;
     }
 
-//    public PersonDetailView getPersonDetailView(Long id) {
-//        return personRepository.findPersonDetailedView(id);
-//    }
+    public PersonDetailView getPersonDetailView(Long id) {
+        return personRepository.findPersonDetailedView(id);
+    }
 
-//    public List<PersonBasicView> getPersonsBasicView() {
-//        return personRepository.getPersonsBasicView();
-//    }
+    public List<PersonBasicView> getPersonsBasicView() {
+        return personRepository.getPersonsBasicView();
+    }
 
 //    public void createPerson(PersonCreateView personCreateView) {
 //        // the following three lines can be written in one code line (only for more clear explanation it is written in three lines

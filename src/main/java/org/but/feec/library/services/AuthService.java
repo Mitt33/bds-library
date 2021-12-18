@@ -21,7 +21,7 @@ public class AuthService {
             return false;
         }
 
-        PersonAuthView personAuthView = findPersonByEmail(username);           //v personrepositoryna porovnání
+        PersonAuthView personAuthView = findPersonByEmail(username);
         if (personAuthView == null) {
             throw new ResourceNotFoundException("Provided username is not found.");
         }
