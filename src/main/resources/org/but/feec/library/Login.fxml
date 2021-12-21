@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="fpga" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.but.feec.library.controllers.LoginController">
+<VBox fx:id="fpga" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.but.feec.library.controllers.LoginController">
     <children>
         <HBox>
             <VBox.margin>
@@ -23,7 +23,7 @@
         <Pane prefHeight="363.0" prefWidth="600.0">
             <children>
                 <Label fx:id="vutLogo" layoutX="200.0" layoutY="95.0" prefHeight="17.0" prefWidth="62.0" />
-                <Label layoutX="75.0" layoutY="40.0" text="Welcome to BDS JavaFX Demo">
+                <Label layoutX="139.0" layoutY="57.0" text="Library database application">
                     <font>
                         <Font size="26.0" />
                     </font>
@@ -40,11 +40,10 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Label fx:id="usernameLabel" text="User Name:" GridPane.columnIndex="1" />
+                        <Label fx:id="usernameLabel" text="Email:" GridPane.columnIndex="1" />
                         <Label fx:id="passwordLabel" text="Password:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Button id="signInButton" fx:id="signInButton" mnemonicParsing="false"
-                                onAction="#signInActionHandler" prefHeight="33.0" prefWidth="90.0" text="Sign in" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-                        <TextField id="usernameTextField" fx:id="usernameTextfield" promptText="type your username" GridPane.columnIndex="2" />
+                        <Button id="signInButton" fx:id="signInButton" mnemonicParsing="false" onAction="#signInActionHandler" prefHeight="33.0" prefWidth="90.0" text="Sign in" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                        <TextField id="usernameTextField" fx:id="usernameTextfield" promptText="type your email" GridPane.columnIndex="2" />
                         <PasswordField id="passwordTextField" fx:id="passwordTextField" promptText="type your password" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>

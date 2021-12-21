@@ -34,46 +34,35 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <SplitPane dividerPositions="0.14715048975957254, 0.7782724844167408" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+        <SplitPane focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
             <items>
-                <AnchorPane>
-                    <children>
-                        <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="My friends" textAlignment="CENTER" wrapText="false">
-                            <font>
-                                <Font size="18.0" fx:id="x1" />
-                            </font>
-                            <textFill>
-                                <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
-                            </textFill>
-                        </Label>
-                    </children>
-                </AnchorPane>
                 <ScrollPane prefHeight="-1.0" prefWidth="-1.0">
                     <content>
                         <AnchorPane id="Content" maxWidth="1.7976931348623157E308" minHeight="-1.0" minWidth="-Infinity" prefHeight="517.0" prefWidth="592.0">
                             <children>
-                                <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" prefHeight="27.0" prefWidth="147.0" style="&#10;" text="Persons" textAlignment="CENTER" textFill="$x2" wrapText="false" />
-                                <TableView fx:id="systemPersonsTableView" layoutY="67.0" maxWidth="1.7976931348623157E308" minWidth="-Infinity" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                <Label alignment="CENTER" layoutX="417.0" layoutY="21.0" prefHeight="27.0" prefWidth="147.0" style="&#10;" text="Books in Library" textAlignment="CENTER" wrapText="false">
+                           <font>
+                                      <Font size="18.0" fx:id="x1" />
+                           </font>
+                           <textFill>
+                                      <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
+                           </textFill></Label>
+                                <TableView fx:id="systemPersonsTableView" layoutX="78.0" layoutY="67.0" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="406.0" prefWidth="778.0" AnchorPane.leftAnchor="78.0" AnchorPane.rightAnchor="-264.0">
                                     <columns>
                                         <TableColumn fx:id="personsId" minWidth="75.0" prefWidth="80.00000303983688" text="id" />
                                         <TableColumn fx:id="isbn" minWidth="75.0" prefWidth="160.00001525878906" text="isbn" />
-                                        <TableColumn fx:id="personsGivenName" minWidth="75.0" prefWidth="120.0" text="given name" />
-                                        <TableColumn fx:id="personsFamilyName" minWidth="75.0" prefWidth="120.0" text="family name" />
-                                        <TableColumn fx:id="personsCity" minWidth="75.0" prefWidth="120.0" text="city" />
-                                        <TableColumn fx:id="personsNickname" minWidth="75.0" prefWidth="120.0" text="nickname" />
+                                        <TableColumn fx:id="bookTitle" minWidth="75.0" prefWidth="159.0" text="book title" />
+                                        <TableColumn fx:id="authorName" minWidth="75.0" prefWidth="131.0" text="author name" />
+                                        <TableColumn fx:id="authorSurname" minWidth="75.0" prefWidth="131.0" text="author surname" />
+                                        <TableColumn fx:id="publishingHouse" minWidth="70.0" prefWidth="116.0" text="publishing house" />
                                     </columns>
                                 </TableView>
-                                <Button fx:id="addPersonButton" layoutX="24.0" layoutY="491.0" mnemonicParsing="false" onAction="#handleAddPersonButton" text="Add person" />
-                                <Button fx:id="refreshButton" layoutX="127.0" layoutY="491.0" mnemonicParsing="false" onAction="#handleRefreshButton" text="Refresh" />
+                                <Button fx:id="addPersonButton" layoutX="78.0" layoutY="491.0" mnemonicParsing="false" onAction="#handleAddPersonButton" text="Add book" />
+                                <Button fx:id="refreshButton" layoutX="166.0" layoutY="491.0" mnemonicParsing="false" onAction="#handleRefreshButton" text="Refresh" />
                             </children>
                         </AnchorPane>
                     </content>
                 </ScrollPane>
-                <AnchorPane>
-                    <children>
-                        <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="My meetings" textAlignment="CENTER" textFill="$x2" wrapText="false" />
-                    </children>
-                </AnchorPane>
             </items>
         </SplitPane>
         <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">

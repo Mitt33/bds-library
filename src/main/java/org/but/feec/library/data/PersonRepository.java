@@ -2,7 +2,7 @@ package org.but.feec.library.data;
 
 
 import org.but.feec.library.api.PersonAuthView;
-import org.but.feec.library.api.PersonBasicView;
+import org.but.feec.library.api.BookBasicView;
 import org.but.feec.library.api.PersonDetailView;
 import org.but.feec.library.config.DataSourceConfig;
 import org.but.feec.library.exceptions.DataAccessException;
@@ -38,11 +38,13 @@ public class PersonRepository {
     public PersonDetailView findPersonDetailedView(Long personId) {
         try (Connection connection = DataSourceConfig.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
-                     "SELECT book_id, isbn, book_title" +
-                             " FROM library.book p" )
-//                             +
-//                             " LEFT JOIN bds.address a ON p.id_address = a.id_address" +
-//                             " WHERE p.id_person = ?")
+                     "select book_id, isbn, book_title, author_name, author_surname, publishing_house_name" +
+                             " from library.book b"  +
+                             " left join library.book_has_author ba on b.book_id=ba.book_book_id " +
+                             " left join library.author a on ba.author_author_id=a.author_id " +
+                             " left join library.publishing_house ph on b.publishing_house_id=ph.publishing_house_id " +
+                             " WHERE b.book_id = ?")
+
         ) {
             preparedStatement.setLong(1, personId);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -61,20 +63,21 @@ public class PersonRepository {
      *
      * @return list of persons
      */
-    public List<PersonBasicView> getPersonsBasicView() {
+    public List<BookBasicView> getPersonsBasicView() {
         try (Connection connection = DataSourceConfig.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
-                     "SELECT book_id, isbn, book_title, date_published" +
-                             " FROM library.book p" );
-//             "SELECT id_person, email, first_name, surname, nickname, city" +
-//                             " FROM bds.person p" +
-//                             " LEFT JOIN bds.address a ON p.id_address = a.id_address");
+                     "select book_id, isbn, book_title, author_name, author_surname, publishing_house_name" +
+                             " from library.book b"  +
+                             " left join library.book_has_author ba on b.book_id=ba.book_book_id " +
+                             " left join library.author a on ba.author_author_id=a.author_id " +
+                             " left join library.publishing_house ph on b.publishing_house_id=ph.publishing_house_id ");
+
              ResultSet resultSet = preparedStatement.executeQuery();) {
-            List<PersonBasicView> personBasicViews = new ArrayList<>();
+            List<BookBasicView> bookBasicViews = new ArrayList<>();
             while (resultSet.next()) {
-                personBasicViews.add(mapToPersonBasicView(resultSet));
+                bookBasicViews.add(mapToPersonBasicView(resultSet));
             }
-            return personBasicViews;
+            return bookBasicViews;
         } catch (SQLException e) {
             throw new DataAccessException("Persons basic view could not be loaded.", e);
         }
@@ -158,15 +161,15 @@ public class PersonRepository {
     }
 
 
-    private PersonBasicView mapToPersonBasicView(ResultSet rs) throws SQLException {
-        PersonBasicView personBasicView = new PersonBasicView();
-        personBasicView.setId(rs.getLong("book_id"));
-        personBasicView.setIsbn(rs.getLong("isbn"));
-        personBasicView.setGivenName(rs.getString("book_title"));
- //       personBasicView.setFamilyName(rs.getString("date_published"));
-//        personBasicView.setNickname(rs.getString("nickname"));
-//        personBasicView.setCity(rs.getString("city"));
-        return personBasicView;
+    private BookBasicView mapToPersonBasicView(ResultSet rs) throws SQLException {
+        BookBasicView bookBasicView = new BookBasicView();
+        bookBasicView.setId(rs.getLong("book_id"));
+        bookBasicView.setIsbn(rs.getLong("isbn"));
+        bookBasicView.setBookTitle(rs.getString("book_title"));
+        bookBasicView.setAuthorName(rs.getString("author_name"));
+        bookBasicView.setAuthorSurname(rs.getString("author_surname"));
+        bookBasicView.setPublishingHouse(rs.getString("publishing_house_name"));
+        return bookBasicView;
     }
 
     private PersonDetailView mapToPersonDetailView(ResultSet rs) throws SQLException {

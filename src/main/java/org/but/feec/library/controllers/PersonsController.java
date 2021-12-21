@@ -5,8 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.but.feec.library.App;
-import org.but.feec.library.api.PersonBasicView;
-import org.but.feec.library.api.PersonDetailView;
+import org.but.feec.library.api.BookBasicView;
 import org.but.feec.library.data.PersonRepository;
 import org.but.feec.library.exceptions.ExceptionHandler;
 import javafx.event.ActionEvent;
@@ -31,19 +30,19 @@ public class PersonsController {
     @FXML
     public Button refreshButton;
     @FXML
-    private TableColumn<PersonBasicView, Long> personsId;
+    private TableColumn<BookBasicView, Long> personsId;
     @FXML
-    private TableColumn<PersonBasicView, String> personsCity;
+    private TableColumn<BookBasicView, String> bookTitle;
     @FXML
-    private TableColumn<PersonBasicView, Long> isbn;
+    private TableColumn<BookBasicView, Long> isbn;
     @FXML
-    private TableColumn<PersonBasicView, String> personsFamilyName;
+    private TableColumn<BookBasicView, String> authorName;
     @FXML
-    private TableColumn<PersonBasicView, String> personsGivenName;
+    private TableColumn<BookBasicView, String> authorSurname;
     @FXML
-    private TableColumn<PersonBasicView, String> personsNickname;
+    private TableColumn<BookBasicView, String> publishingHouse;
     @FXML
-    private TableView<PersonBasicView> systemPersonsTableView;
+    private TableView<BookBasicView> systemPersonsTableView;
 //    @FXML
 //    public MenuItem exitMenuItem;
 
@@ -59,15 +58,16 @@ public class PersonsController {
         personService = new PersonService(personRepository);
 //        GlyphsDude.setIcon(exitMenuItem, FontAwesomeIcon.CLOSE, "1em");
 
-        personsId.setCellValueFactory(new PropertyValueFactory<PersonBasicView, Long>("id"));
-        personsCity.setCellValueFactory(new PropertyValueFactory<PersonBasicView, String>("city"));
-        isbn.setCellValueFactory(new PropertyValueFactory<PersonBasicView, Long>("isbn"));
-        personsFamilyName.setCellValueFactory(new PropertyValueFactory<PersonBasicView, String>("familyName"));
-        personsGivenName.setCellValueFactory(new PropertyValueFactory<PersonBasicView, String>("givenName"));
-        personsNickname.setCellValueFactory(new PropertyValueFactory<PersonBasicView, String>("nickname"));
+        personsId.setCellValueFactory(new PropertyValueFactory<BookBasicView, Long>("id"));
+        bookTitle.setCellValueFactory(new PropertyValueFactory<BookBasicView, String>("bookTitle"));
+        isbn.setCellValueFactory(new PropertyValueFactory<BookBasicView, Long>("isbn"));
+        authorName.setCellValueFactory(new PropertyValueFactory<BookBasicView, String>("authorName"));
+        authorSurname.setCellValueFactory(new PropertyValueFactory<BookBasicView, String>("authorSurname"));
+        publishingHouse.setCellValueFactory(new PropertyValueFactory<BookBasicView, String>("publishingHouse"));
 
 
-        ObservableList<PersonBasicView> observablePersonsList = initializePersonsData();
+
+        ObservableList<BookBasicView> observablePersonsList = initializePersonsData();
         systemPersonsTableView.setItems(observablePersonsList);
 
         systemPersonsTableView.getSortOrder().add(personsId);
@@ -82,7 +82,7 @@ public class PersonsController {
         MenuItem edit = new MenuItem("Edit person");
         MenuItem detailedView = new MenuItem("Detailed person view");
         edit.setOnAction((ActionEvent event) -> {
-            PersonBasicView personView = systemPersonsTableView.getSelectionModel().getSelectedItem();
+            BookBasicView personView = systemPersonsTableView.getSelectionModel().getSelectedItem();
             /*try {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(App.class.getResource("fxml/PersonEdit.fxml"));
@@ -138,8 +138,8 @@ public class PersonsController {
         systemPersonsTableView.setContextMenu(menu);*/
     });}
 
-    private ObservableList<PersonBasicView> initializePersonsData() {
-        List<PersonBasicView> persons = personService.getPersonsBasicView();
+    private ObservableList<BookBasicView> initializePersonsData() {
+        List<BookBasicView> persons = personService.getPersonsBasicView();
         return FXCollections.observableArrayList(persons);
     }
 
@@ -176,7 +176,7 @@ public class PersonsController {
     }
 
     public void handleRefreshButton(ActionEvent actionEvent) {
-        ObservableList<PersonBasicView> observablePersonsList = initializePersonsData();
+        ObservableList<BookBasicView> observablePersonsList = initializePersonsData();
         systemPersonsTableView.setItems(observablePersonsList);
         systemPersonsTableView.refresh();
         systemPersonsTableView.sort();

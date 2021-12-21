@@ -1,6 +1,6 @@
 package org.but.feec.library.services;
 
-import org.but.feec.library.api.PersonBasicView;
+import org.but.feec.library.api.BookBasicView;
 import org.but.feec.library.api.PersonDetailView;
 import org.but.feec.library.data.PersonRepository;
 
@@ -19,7 +19,7 @@ public class PersonService {
         return personRepository.findPersonDetailedView(id);
     }
 
-    public List<PersonBasicView> getPersonsBasicView() {
+    public List<BookBasicView> getPersonsBasicView() {
         return personRepository.getPersonsBasicView();
     }
 
