@@ -17,11 +17,13 @@ public class PersonRepository {
         try (Connection connection = DataSourceConfig.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "SELECT email, pwd" +
-                             " FROM library.person p" +
-                             " WHERE p.email = ?")
+                             " FROM library.member m" +
+                             " LEFT JOIN library.member_contacts c on m.member_id = c.member_contacts_id " +
+                             " WHERE c.email = ?")
 
         ) {
             preparedStatement.setString(1, email);
+            System.out.println(preparedStatement);//??
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     return mapToPersonAuth(resultSet);

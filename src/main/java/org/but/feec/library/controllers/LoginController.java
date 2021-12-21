@@ -141,7 +141,6 @@ public class LoginController {
         alert.setTitle("Unauthenticated");
         alert.setHeaderText("The user is not authenticated");
         alert.setContentText("Please provide a valid username and password");//ww  w . j  a  va2s  .  co  m
-
         alert.showAndWait();
     }
 
