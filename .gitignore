@@ -12,6 +12,6 @@
 .DS_Store
  
 # Maven
-.log
+*.log
 logs/
 target/
