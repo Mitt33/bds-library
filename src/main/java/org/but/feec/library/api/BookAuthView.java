@@ -1,6 +1,6 @@
 package org.but.feec.library.api;
 
-public class PersonAuthView {
+public class BookAuthView {
     private String email;
     private String password;
 

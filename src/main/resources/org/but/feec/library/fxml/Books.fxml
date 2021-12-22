@@ -17,7 +17,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox minHeight="625.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.but.feec.library.controllers.PersonsController">
+<VBox minHeight="625.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.but.feec.library.controllers.BookController">
     <children>
         <MenuBar VBox.vgrow="NEVER">
             <menus>
@@ -57,7 +57,7 @@
                                         <TableColumn fx:id="publishingHouse" minWidth="70.0" prefWidth="116.0" text="publishing house" />
                                     </columns>
                                 </TableView>
-                                <Button fx:id="addPersonButton" layoutX="78.0" layoutY="491.0" mnemonicParsing="false" onAction="#handleAddPersonButton" text="Add book" />
+                                <Button fx:id="addBookButton" layoutX="78.0" layoutY="491.0" mnemonicParsing="false" onAction="#handleAddBookButton" text="Add book" />
                                 <Button fx:id="refreshButton" layoutX="166.0" layoutY="491.0" mnemonicParsing="false" onAction="#handleRefreshButton" text="Refresh" />
                             </children>
                         </AnchorPane>

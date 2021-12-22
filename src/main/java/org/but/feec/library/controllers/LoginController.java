@@ -17,13 +17,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.but.feec.library.App;
-import org.but.feec.library.data.PersonRepository;
+import org.but.feec.library.data.BookRepository;
 import org.but.feec.library.exceptions.DataAccessException;
 import org.but.feec.library.exceptions.ExceptionHandler;
 import org.but.feec.library.exceptions.ResourceNotFoundException;
@@ -53,7 +51,7 @@ public class LoginController {
     @FXML
     private PasswordField passwordTextField;
 
-    private PersonRepository personRepository;
+    private BookRepository bookRepository;
     private AuthService authService;
 
     private ValidationSupport validation;
@@ -91,8 +89,8 @@ public class LoginController {
     }
 
     private void initializeServices() {
-        personRepository = new PersonRepository();
-        authService = new AuthService(personRepository);
+        bookRepository = new BookRepository();
+        authService = new AuthService(bookRepository);
     }
 
     public void signInActionHandler(ActionEvent event) {

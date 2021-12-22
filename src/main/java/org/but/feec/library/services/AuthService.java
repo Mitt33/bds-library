@@ -1,19 +1,19 @@
 package org.but.feec.library.services;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import org.but.feec.library.api.PersonAuthView;
-import org.but.feec.library.data.PersonRepository;
+import org.but.feec.library.api.BookAuthView;
+import org.but.feec.library.data.BookRepository;
 import org.but.feec.library.exceptions.ResourceNotFoundException;
 
 public class AuthService {
-    private PersonRepository personRepository;
+    private BookRepository bookRepository;
 
-    public AuthService(PersonRepository personRepository) {
-        this.personRepository = personRepository;
+    public AuthService(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
     }
 
-    private PersonAuthView findPersonByEmail(String email) {
-        return personRepository.findPersonByEmail(email);
+    private BookAuthView findPersonByEmail(String email) {
+        return bookRepository.findPersonByEmail(email);
     }
 
     public boolean authenticate(String username, String password) {
@@ -21,12 +21,12 @@ public class AuthService {
             return false;
         }
 
-        PersonAuthView personAuthView = findPersonByEmail(username);
-        if (personAuthView == null) {
+        BookAuthView bookAuthView = findPersonByEmail(username);
+        if (bookAuthView == null) {
             throw new ResourceNotFoundException("Provided username is not found.");
         }
 
-        BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), personAuthView.getPassword());
+        BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), bookAuthView.getPassword());
         return result.verified;
     }
 }

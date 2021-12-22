@@ -6,7 +6,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.but.feec.library.App;
 import org.but.feec.library.api.BookBasicView;
-import org.but.feec.library.data.PersonRepository;
+import org.but.feec.library.api.BookDetailView;
+import org.but.feec.library.data.BookRepository;
 import org.but.feec.library.exceptions.ExceptionHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,19 +15,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import org.but.feec.library.services.PersonService;
+import org.but.feec.library.services.BookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.List;
 
-public class PersonsController {
+public class BookController {
 
-    private static final Logger logger = LoggerFactory.getLogger(PersonsController.class);
+    private static final Logger logger = LoggerFactory.getLogger(BookController.class);
 
     @FXML
-    public Button addPersonButton;
+    public Button addBookButton;
     @FXML
     public Button refreshButton;
     @FXML
@@ -43,19 +44,19 @@ public class PersonsController {
     private TableColumn<BookBasicView, String> publishingHouse;
     @FXML
     private TableView<BookBasicView> systemPersonsTableView;
-//    @FXML
-//    public MenuItem exitMenuItem;
+    @FXML
+    public MenuItem exitMenuItem;
 
-    private PersonService personService;
-    private PersonRepository personRepository;
+    private BookService bookService;
+    private BookRepository bookRepository;
 
-    public PersonsController() {
+    public BookController() {
     }
 
     @FXML
     private void initialize() {
-        personRepository = new PersonRepository();
-        personService = new PersonService(personRepository);
+        bookRepository = new BookRepository();
+        bookService = new BookService(bookRepository);
 //        GlyphsDude.setIcon(exitMenuItem, FontAwesomeIcon.CLOSE, "1em");
 
         personsId.setCellValueFactory(new PropertyValueFactory<BookBasicView, Long>("id"));
@@ -67,8 +68,8 @@ public class PersonsController {
 
 
 
-        ObservableList<BookBasicView> observablePersonsList = initializePersonsData();
-        systemPersonsTableView.setItems(observablePersonsList);
+        ObservableList<BookBasicView> observableBookList = initializeBookData();
+        systemPersonsTableView.setItems(observableBookList);
 
         systemPersonsTableView.getSortOrder().add(personsId);
 
@@ -79,18 +80,18 @@ public class PersonsController {
     }
 
     private void initializeTableViewSelection() {
-        MenuItem edit = new MenuItem("Edit person");
-        MenuItem detailedView = new MenuItem("Detailed person view");
+        MenuItem edit = new MenuItem("Edit Book");
+        MenuItem detailedView = new MenuItem("Detailed book view");
         edit.setOnAction((ActionEvent event) -> {
             BookBasicView personView = systemPersonsTableView.getSelectionModel().getSelectedItem();
-            /*try {
+            try {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(App.class.getResource("fxml/PersonEdit.fxml"));
                 Stage stage = new Stage();
                 stage.setUserData(personView);
                 stage.setTitle("BDS JavaFX Edit Person");
 
-                PersonsEditController controller = new PersonsEditController();
+                BookEditController controller = new BookEditController();
                 controller.setStage(stage);
                 fxmlLoader.setController(controller);
 
@@ -105,19 +106,19 @@ public class PersonsController {
         });
 
         detailedView.setOnAction((ActionEvent event) -> {
-            PersonBasicView personView = systemPersonsTableView.getSelectionModel().getSelectedItem();
+            BookBasicView bookView = systemPersonsTableView.getSelectionModel().getSelectedItem();
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(App.class.getResource("fxml/PersonsDetailView.fxml"));
+                fxmlLoader.setLocation(App.class.getResource("fxml/BookDetailView.fxml"));
                 Stage stage = new Stage();
 
-                Long personId = personView.getId();
-                PersonDetailView personDetailView = personService.getPersonDetailView(personId);
+                Long personId = bookView.getId();
+                BookDetailView bookDetailView = bookService.getPersonDetailView(personId);
 
-                stage.setUserData(personDetailView);
-                stage.setTitle("BDS JavaFX Persons Detailed View");
+                stage.setUserData(bookDetailView);
+                stage.setTitle("BDS JavaFX book Detailed View");
 
-                PersonsDetailViewController controller = new PersonsDetailViewController();
+                BookDetailViewController controller = new BookDetailViewController();
                 controller.setStage(stage);
                 fxmlLoader.setController(controller);
 
@@ -135,12 +136,12 @@ public class PersonsController {
         ContextMenu menu = new ContextMenu();
         menu.getItems().add(edit);
         menu.getItems().addAll(detailedView);
-        systemPersonsTableView.setContextMenu(menu);*/
-    });}
+        systemPersonsTableView.setContextMenu(menu);
+    }
 
-    private ObservableList<BookBasicView> initializePersonsData() {
-        List<BookBasicView> persons = personService.getPersonsBasicView();
-        return FXCollections.observableArrayList(persons);
+    private ObservableList<BookBasicView> initializeBookData() {
+        List<BookBasicView> books = bookService.getPersonsBasicView();
+        return FXCollections.observableArrayList(books);
     }
 
     private void loadIcons() {
@@ -154,10 +155,10 @@ public class PersonsController {
         System.exit(0);
     }
 
-    public void handleAddPersonButton(ActionEvent actionEvent) {
+    public void handleAddBookButton(ActionEvent actionEvent) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(App.class.getResource("fxml/PersonsCreate.fxml"));
+            fxmlLoader.setLocation(App.class.getResource("fxml/BookCreate.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 600, 500);
             Stage stage = new Stage();
             stage.setTitle("BDS JavaFX Create Person");
@@ -176,7 +177,7 @@ public class PersonsController {
     }
 
     public void handleRefreshButton(ActionEvent actionEvent) {
-        ObservableList<BookBasicView> observablePersonsList = initializePersonsData();
+        ObservableList<BookBasicView> observablePersonsList = initializeBookData();
         systemPersonsTableView.setItems(observablePersonsList);
         systemPersonsTableView.refresh();
         systemPersonsTableView.sort();

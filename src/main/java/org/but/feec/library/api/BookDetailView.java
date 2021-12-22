@@ -5,13 +5,15 @@ import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class BookBasicView {
+public class BookDetailView {
     private LongProperty id = new SimpleLongProperty();
     private LongProperty isbn = new SimpleLongProperty();
     private StringProperty bookTitle = new SimpleStringProperty();
     private StringProperty authorName = new SimpleStringProperty();
     private StringProperty authorSurname = new SimpleStringProperty();
     private StringProperty publishingHouse = new SimpleStringProperty();
+    private StringProperty literatureCategory = new SimpleStringProperty();
+    private StringProperty library = new SimpleStringProperty();
 
 
     public Long getId() {
@@ -21,6 +23,7 @@ public class BookBasicView {
     public void setId(Long id) {
         this.idProperty().setValue(id);
     }
+
 
     public String getBookTitle() {
         return bookTitleProperty().get();
@@ -39,7 +42,6 @@ public class BookBasicView {
         this.isbnProperty().setValue(isbn);
     }
 
-
     public String getAuthorName() {
         return authorNameProperty().get();
     }
@@ -47,6 +49,7 @@ public class BookBasicView {
     public void setAuthorName(String authorName) {
         this.authorNameProperty().setValue(authorName);
     }
+
 
     public String getAuthorSurname() {
         return authorSurnameProperty().get();
@@ -65,6 +68,21 @@ public class BookBasicView {
         this.publishingHouseProperty().setValue(publishingHouse);
     }
 
+    public String getLiteratureCategory() {
+        return literatureCategoryProperty().get();
+    }
+
+    public void setLiteratureCategory(String literatureCategory) {
+        this.literatureCategoryProperty().setValue(literatureCategory);
+    }
+
+    public String getLibrary() {
+        return libraryProperty().get();
+    }
+
+    public void setLibrary(String library) {
+        this.libraryProperty().setValue(library);
+    }
 
 
     public LongProperty idProperty() {
@@ -89,6 +107,14 @@ public class BookBasicView {
 
     public StringProperty publishingHouseProperty() {
         return publishingHouse;
+    }
+
+    public StringProperty literatureCategoryProperty() {
+        return literatureCategory;
+    }
+
+    public StringProperty libraryProperty() {
+        return library;
     }
 
 }
