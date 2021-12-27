@@ -30,6 +30,8 @@ public class BookEditController {
     @FXML
     public Button editBookButton;
     @FXML
+    public TextField idTextField;
+    @FXML
     public TextField isbnTextField;
     @FXML
     private TextField bookTitleTextField;
@@ -58,7 +60,7 @@ public class BookEditController {
 
         validation = new ValidationSupport();
         validation.registerValidator(isbnTextField, Validator.createEmptyValidator("The id must not be empty."));
-       // idTextField.setEditable(false);
+        idTextField.setEditable(false);
         validation.registerValidator(bookTitleTextField, Validator.createEmptyValidator("The email must not be empty."));
         validation.registerValidator(authorNameTextField, Validator.createEmptyValidator("The first name must not be empty."));
         validation.registerValidator(authorSurnameTextField, Validator.createEmptyValidator("The last name must not be empty."));
@@ -78,6 +80,7 @@ public class BookEditController {
         Stage stage = this.stage;
         if (stage.getUserData() instanceof BookBasicView) {
             BookBasicView bookBasicView = (BookBasicView) stage.getUserData();
+            idTextField.setText(String.valueOf(bookBasicView.getId()));
             isbnTextField.setText(String.valueOf(bookBasicView.getIsbn()));
             bookTitleTextField.setText(bookBasicView.getBookTitle());
             authorNameTextField.setText(bookBasicView.getAuthorName());
@@ -89,20 +92,22 @@ public class BookEditController {
     @FXML
     public void handleEditBookButton(ActionEvent event) {
         // can be written easier, its just for better explanation here on so many lines
+        Long id = Long.valueOf(idTextField.getText());
         Long isbn = Long.valueOf(isbnTextField.getText());
         String bookTitle = bookTitleTextField.getText();
         String authorName = authorNameTextField.getText();
         String authorSurname = authorSurnameTextField.getText();
         String publishingHouse = publishingHouseTextField.getText();
 
-        BookEditView bookEditview = new BookEditView();
-        bookEditview.setIsbn(isbn);
-        bookEditview.setBookTitle(bookTitle);
-        bookEditview.setAuthorName(authorName);
-        bookEditview.setAuthorSurname(authorSurname);
-        bookEditview.setPublishingHouse(publishingHouse);
+        BookEditView bookEditView = new BookEditView();
+        bookEditView.setId(id);
+        bookEditView.setIsbn(isbn);
+        bookEditView.setBookTitle(bookTitle);
+        bookEditView.setAuthorName(authorName);
+        bookEditView.setAuthorSurname(authorSurname);
+        bookEditView.setPublishingHouse(publishingHouse);
 
-        bookService.editBook(bookEditview);
+        bookService.editBook(bookEditView);
 
         bookEditedConfirmationDialog();
     }
@@ -110,7 +115,7 @@ public class BookEditController {
     private void bookEditedConfirmationDialog() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Book Edited Confirmation");
-        alert.setHeaderText("CHosen book was successfully edited.");
+        alert.setHeaderText("Chosen book was successfully edited.");
 
         Timeline idlestage = new Timeline(new KeyFrame(Duration.seconds(3), new EventHandler<ActionEvent>() {
             @Override

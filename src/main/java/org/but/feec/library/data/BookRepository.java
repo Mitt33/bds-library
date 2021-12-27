@@ -135,12 +135,17 @@ public class BookRepository {
     public void editBook(BookEditView bookEditView) {
         String insertPersonSQL =
                 "begin;" +
-                        " UPDATE library.book b SET isbn = ?, book_title = ? WHERE b.book_id = ?;" +
-                        " UPDATE library.author a SET author_name = ?, author_surname = ? WHERE a.author_id =(SELECT b.book_id from library.author a" +
-                        " LEFT JOIN library.book_has_author bhs ON a.author_id =bhs.author_author_id" +
-                        " LEFT JOIN library.book b on bhs.book_book_id = b.book_id" +
-                        " WHERE b.book_id=?);"+
+                        " UPDATE library.book b SET isbn = ?, book_title = ? WHERE b.book_id = ?; " +
+                        " UPDATE library.author a SET author_name = ?, author_surname = ? WHERE a.author_id =(SELECT b.book_id from library.author a " +
+                        " LEFT JOIN library.book_has_author bhs ON a.author_id =bhs.author_author_id " +
+                        " LEFT JOIN library.book b on bhs.book_book_id = b.book_id " +
+                        " WHERE b.book_id = ? ); "+
+                        " UPDATE library.publishing_house ph SET publishing_house_name = ? "+
+                        " WHERE ph.publishing_house_id =(SELECT b.publishing_house_id from library.book b "+
+                        " LEFT join library.publishing_house ph on b.publishing_house_id=ph.publishing_house_id "+
+                        " WHERE b.book_id= ? ); "+
                         "commit";
+
         String checkIfExists = "SELECT isbn FROM library.book b WHERE b.book_id = ?";
         try (Connection connection = DataSourceConfig.getConnection();
              // would be beneficial if I will return the created entity back
@@ -149,9 +154,13 @@ public class BookRepository {
             preparedStatement.setLong(1, bookEditView.getIsbn());
             preparedStatement.setString(2, bookEditView.getBookTitle());
             preparedStatement.setLong(3, bookEditView.getId());
+            System.out.println(bookEditView.getId());
             preparedStatement.setString(4, bookEditView.getAuthorName());
             preparedStatement.setString(5, bookEditView.getAuthorSurname());
             preparedStatement.setLong(6, bookEditView.getId());
+            preparedStatement.setString(7, bookEditView.getPublishingHouse());
+            preparedStatement.setLong(8, bookEditView.getId());
+            System.out.println((preparedStatement));
 
             try {
                 connection.setAutoCommit(false);

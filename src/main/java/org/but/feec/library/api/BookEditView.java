@@ -9,19 +9,17 @@ public class BookEditView {
     private String authorSurname;
     private String publishingHouse;
 
+    public Long getId() {return id;}
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Long getIsbn() {
         return isbn;
     }
     public void setIsbn(Long isbn) {
         this.isbn = isbn;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getBookTitle() {
@@ -58,8 +56,9 @@ public class BookEditView {
 
     @Override
     public String toString() {
-        return "PersonEditView{" +
-                "isbn='" + isbn + '\'' +
+        return "BookEditView{" +
+              //  "id='" + id + '\'' +
+                ", isbn='" + isbn + '\'' +
                 ", bookTitle='" + bookTitle + '\'' +
                 ", authorName='" + authorName + '\'' +
                 ", authorSurname='" + authorSurname + '\'' +

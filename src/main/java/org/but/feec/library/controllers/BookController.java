@@ -74,7 +74,7 @@ public class BookController {
         systemPersonsTableView.getSortOrder().add(personsId);
 
         initializeTableViewSelection();
-      //  loadIcons();
+        loadIcons();
 
         logger.info("PersonsController initialized");
     }
@@ -152,7 +152,7 @@ public class BookController {
     }
 
     private void loadIcons() {
-        Image vutLogoImage = new Image(App.class.getResourceAsStream("logos/vut-logo-eng.png"));
+        Image vutLogoImage = new Image(App.class.getResourceAsStream("images/icon.png"));
         ImageView vutLogo = new ImageView(vutLogoImage);
         vutLogo.setFitWidth(150);
         vutLogo.setFitHeight(50);
@@ -174,7 +174,7 @@ public class BookController {
 //            Stage stageOld = (Stage) signInButton.getScene().getWindow();
 //            stageOld.close();
 //
-//            stage.getIcons().add(new Image(App.class.getResourceAsStream("logos/vut.jpg")));
+            stage.getIcons().add(new Image(App.class.getResourceAsStream("images/icon.png")));
 //            authConfirmDialog();
 
             stage.show();
