@@ -1,6 +1,7 @@
 BPC-BDS 3. PROJECT
 # bds-library
-
+Goal of this project is creating database apllication with GUI using javafx. 
+The purpose of this application is a database system of the library for storing records about books and performing operations with them.
 
 ## To build&run the project
 Enter the following command in the `project root directory` to build the project.
