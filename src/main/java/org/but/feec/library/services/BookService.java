@@ -17,12 +17,12 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
-    public BookDetailView getPersonDetailView(Long id) {
-        return bookRepository.findPersonDetailedView(id);
+    public BookDetailView getBookDetailView(Long id) {
+        return bookRepository.findBookDetailedView(id);
     }
 
-    public List<BookBasicView> getPersonsBasicView() {
-        return bookRepository.getPersonsBasicView();
+    public List<BookBasicView> getBookBasicView() {
+        return bookRepository.getBookBasicView();
     }
 
     public void createBook(BookCreateView bookCreateView) {
@@ -34,8 +34,8 @@ public class BookService {
         bookRepository.createBook(bookCreateView);
     }
 
-    public void editBook(BookEditView personEditView) {
-        bookRepository.editBook(personEditView);
+    public void editBook(BookEditView bookEditView) {
+        bookRepository.editBook(bookEditView);
     }
 
     /**

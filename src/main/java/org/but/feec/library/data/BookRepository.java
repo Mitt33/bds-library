@@ -33,7 +33,7 @@ public class BookRepository {
         return null;
     }
 
-    public BookDetailView findPersonDetailedView(Long bookId) {
+    public BookDetailView findBookDetailedView(Long bookId) {
         try (Connection connection = DataSourceConfig.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "select b.book_id, isbn, book_title, author_name, author_surname, publishing_house_name, category_name, library_name" +
@@ -65,7 +65,7 @@ public class BookRepository {
      *
      * @return list of persons
      */
-    public List<BookBasicView> getPersonsBasicView() {
+    public List<BookBasicView> getBookBasicView() {
         try (Connection connection = DataSourceConfig.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "select book_id, isbn, book_title, author_name, author_surname, publishing_house_name" +
@@ -118,46 +118,64 @@ public class BookRepository {
         }
     }
 
+    public void removeBook(Long id) {
+        String deleteBookSQL = "DELETE FROM library.book WHERE book_id = ?";
+        System.out.println(deleteBookSQL);
+        try (Connection connection = DataSourceConfig.getConnection();
+             PreparedStatement prpstmt = connection.prepareStatement(deleteBookSQL)) {
+
+            prpstmt.setLong(1, id);
+            prpstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println("failed");
+        }
+    }
+
     public void editBook(BookEditView bookEditView) {
-        String insertPersonSQL = "UPDATE bds.person p SET email = ?, first_name = ?, nickname = ?, surname = ? WHERE p.id_person = ?";
-        String checkIfExists = "SELECT email FROM bds.person p WHERE p.id_person = ?";
+        String insertPersonSQL =
+                "begin;" +
+                        " UPDATE library.book b SET isbn = ?, book_title = ? WHERE b.book_id = ?;" +
+                        " UPDATE library.author a SET author_name = ?, author_surname = ? WHERE a.author_id =(SELECT b.book_id from library.author a" +
+                        " LEFT JOIN library.book_has_author bhs ON a.author_id =bhs.author_author_id" +
+                        " LEFT JOIN library.book b on bhs.book_book_id = b.book_id" +
+                        " WHERE b.book_id=?);"+
+                        "commit";
+        String checkIfExists = "SELECT isbn FROM library.book b WHERE b.book_id = ?";
         try (Connection connection = DataSourceConfig.getConnection();
              // would be beneficial if I will return the created entity back
              PreparedStatement preparedStatement = connection.prepareStatement(insertPersonSQL, Statement.RETURN_GENERATED_KEYS)) {
             // set prepared statement variables
-            preparedStatement.setString(1, bookEditView.getEmail());
-           // preparedStatement.setString(2, bookEditView.getFirstName());
-            preparedStatement.setString(3, bookEditView.getNickname());
-           // preparedStatement.setString(4, bookEditView.getSurname());
-            preparedStatement.setLong(5, bookEditView.getId());
+            preparedStatement.setLong(1, bookEditView.getIsbn());
+            preparedStatement.setString(2, bookEditView.getBookTitle());
+            preparedStatement.setLong(3, bookEditView.getId());
+            preparedStatement.setString(4, bookEditView.getAuthorName());
+            preparedStatement.setString(5, bookEditView.getAuthorSurname());
+            preparedStatement.setLong(6, bookEditView.getId());
 
             try {
-                // TODO set connection autocommit to false
-                /* HERE */
+                connection.setAutoCommit(false);
                 try (PreparedStatement ps = connection.prepareStatement(checkIfExists, Statement.RETURN_GENERATED_KEYS)) {
                     ps.setLong(1, bookEditView.getId());
                     ps.execute();
                 } catch (SQLException e) {
-                    throw new DataAccessException("This person for edit do not exists.");
+                    throw new DataAccessException("This book for edit do not exists.");
                 }
 
                 int affectedRows = preparedStatement.executeUpdate();
 
                 if (affectedRows == 0) {
-                    throw new DataAccessException("Creating person failed, no rows affected.");
+                    throw new DataAccessException("Creating book failed, no rows affected.");
                 }
-                // TODO commit the transaction (both queries were performed)
-                /* HERE */
+                connection.commit();
             } catch (SQLException e) {
-                // TODO rollback the transaction if something wrong occurs
-                /* HERE */
+                connection.rollback();
             } finally {
-                // TODO set connection autocommit back to true
-                /* HERE */
+                connection.setAutoCommit(true);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Creating person failed operation on the database failed.");
+            throw new DataAccessException("Creating book failed operation on the database failed.");
         }
     }
 

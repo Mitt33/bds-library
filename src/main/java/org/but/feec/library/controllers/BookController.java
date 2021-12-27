@@ -82,14 +82,15 @@ public class BookController {
     private void initializeTableViewSelection() {
         MenuItem edit = new MenuItem("Edit Book");
         MenuItem detailedView = new MenuItem("Detailed book view");
+        MenuItem delete = new MenuItem ("Delete book");
         edit.setOnAction((ActionEvent event) -> {
-            BookBasicView personView = systemPersonsTableView.getSelectionModel().getSelectedItem();
+            BookBasicView bookView = systemPersonsTableView.getSelectionModel().getSelectedItem();
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(App.class.getResource("fxml/PersonEdit.fxml"));
+                fxmlLoader.setLocation(App.class.getResource("fxml/BookEdit.fxml"));
                 Stage stage = new Stage();
-                stage.setUserData(personView);
-                stage.setTitle("BDS JavaFX Edit Person");
+                stage.setUserData(bookView);
+                stage.setTitle("BDS JavaFX Edit Book");
 
                 BookEditController controller = new BookEditController();
                 controller.setStage(stage);
@@ -113,7 +114,7 @@ public class BookController {
                 Stage stage = new Stage();
 
                 Long personId = bookView.getId();
-                BookDetailView bookDetailView = bookService.getPersonDetailView(personId);
+                BookDetailView bookDetailView = bookService.getBookDetailView(personId);
 
                 stage.setUserData(bookDetailView);
                 stage.setTitle("BDS JavaFX book Detailed View");
@@ -132,15 +133,21 @@ public class BookController {
             }
         });
 
+        delete.setOnAction((ActionEvent event)-> {
+            BookBasicView bookBasicView = systemPersonsTableView.getSelectionModel().getSelectedItem();
+            Long bookId = bookBasicView.getId();
+            bookRepository.removeBook(bookId);
+        });
 
         ContextMenu menu = new ContextMenu();
         menu.getItems().add(edit);
         menu.getItems().addAll(detailedView);
+        menu.getItems().add(delete);
         systemPersonsTableView.setContextMenu(menu);
     }
 
     private ObservableList<BookBasicView> initializeBookData() {
-        List<BookBasicView> books = bookService.getPersonsBasicView();
+        List<BookBasicView> books = bookService.getBookBasicView();
         return FXCollections.observableArrayList(books);
     }
 
@@ -181,5 +188,49 @@ public class BookController {
         systemPersonsTableView.setItems(observablePersonsList);
         systemPersonsTableView.refresh();
         systemPersonsTableView.sort();
+//    }
+//    public void handleFilterButton(ActionEvent actionEvent){
+//        try {
+//            String text = searchBar.getText();
+//            System.out.println("handler" +text);
+//            FXMLLoader fxmlLoader = new FXMLLoader();
+//            fxmlLoader.setLocation(App.class.getResource("fxml/BookFilter.fxml"));
+//            Stage stage = new Stage();
+//            BooksFilterController booksFilterController = new BooksFilterController();
+//            stage.setUserData(text);
+//            booksFilterController.setStage(stage);
+//            fxmlLoader.setController(booksFilterController);
+//            Scene scene = new Scene(fxmlLoader.load(), 600, 500);
+//
+//
+//            stage.setTitle("filter");
+//            stage.setScene(scene);
+//            stage.show();
+//
+//        } catch (IOException ex) {
+//            ExceptionHandler.handleException(ex);
+//        }
+//
+//    }
+//    public void handleInjectionButton(ActionEvent actionEvent){
+//        try{
+//
+//            FXMLLoader fxmlLoader = new FXMLLoader();
+//            fxmlLoader.setLocation(App.class.getResource("fxml/injectionTraining.fxml"));
+//            Stage stage = new Stage();
+//            InjectionController injectionController = new InjectionController();
+//
+//            injectionController.setStage(stage);
+//            fxmlLoader.setController(injectionController);
+//            Scene scene = new Scene(fxmlLoader.load(), 600, 500);
+//
+//
+//            stage.setTitle("SQL Injection training");
+//            stage.setScene(scene);
+//            stage.show();
+//        }catch (IOException ex) {
+//            ExceptionHandler.handleException(ex);
+//        }
+//    }
     }
 }

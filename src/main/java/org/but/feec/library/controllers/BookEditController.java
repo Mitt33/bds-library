@@ -28,17 +28,17 @@ public class BookEditController {
     private static final Logger logger = LoggerFactory.getLogger(BookEditController.class);
 
     @FXML
-    public Button editPersonButton;
+    public Button editBookButton;
     @FXML
-    public TextField idTextField;
+    public TextField isbnTextField;
     @FXML
-    private TextField emailTextField;
+    private TextField bookTitleTextField;
     @FXML
-    private TextField givenNameTextField;
+    private TextField authorNameTextField;
     @FXML
-    private TextField familyNameTextField;
+    private TextField authorSurnameTextField;
     @FXML
-    private TextField nicknameTextField;
+    private TextField publishingHouseTextField;
 
     private BookService bookService;
     private BookRepository bookRepository;
@@ -57,59 +57,60 @@ public class BookEditController {
         bookService = new BookService(bookRepository);
 
         validation = new ValidationSupport();
-        validation.registerValidator(idTextField, Validator.createEmptyValidator("The id must not be empty."));
-        idTextField.setEditable(false);
-        validation.registerValidator(emailTextField, Validator.createEmptyValidator("The email must not be empty."));
-        validation.registerValidator(givenNameTextField, Validator.createEmptyValidator("The first name must not be empty."));
-        validation.registerValidator(familyNameTextField, Validator.createEmptyValidator("The last name must not be empty."));
-        validation.registerValidator(nicknameTextField, Validator.createEmptyValidator("The nickname must not be empty."));
+        validation.registerValidator(isbnTextField, Validator.createEmptyValidator("The id must not be empty."));
+       // idTextField.setEditable(false);
+        validation.registerValidator(bookTitleTextField, Validator.createEmptyValidator("The email must not be empty."));
+        validation.registerValidator(authorNameTextField, Validator.createEmptyValidator("The first name must not be empty."));
+        validation.registerValidator(authorSurnameTextField, Validator.createEmptyValidator("The last name must not be empty."));
+        validation.registerValidator(publishingHouseTextField, Validator.createEmptyValidator("The nickname must not be empty."));
 
-        editPersonButton.disableProperty().bind(validation.invalidProperty());
+        editBookButton.disableProperty().bind(validation.invalidProperty());
 
-        loadPersonsData();
+        loadBookData();
 
-        logger.info("PersonsEditController initialized");
+        logger.info("BookEditController initialized");
     }
 
     /**
      * Load passed data from Persons controller. Check this tutorial explaining how to pass the data between controllers: https://dev.to/devtony101/javafx-3-ways-of-passing-information-between-scenes-1bm8
      */
-    private void loadPersonsData() {
+    private void loadBookData() {
         Stage stage = this.stage;
         if (stage.getUserData() instanceof BookBasicView) {
             BookBasicView bookBasicView = (BookBasicView) stage.getUserData();
-            idTextField.setText(String.valueOf(bookBasicView.getId()));
-            // emailTextField.setText(bookBasicView.getEmail());
-            givenNameTextField.setText(String.valueOf(bookBasicView.getIsbn()));
-            familyNameTextField.setText(bookBasicView.getBookTitle());
+            isbnTextField.setText(String.valueOf(bookBasicView.getIsbn()));
+            bookTitleTextField.setText(bookBasicView.getBookTitle());
+            authorNameTextField.setText(bookBasicView.getAuthorName());
+            authorSurnameTextField.setText(bookBasicView.getAuthorSurname());
+            publishingHouseTextField.setText(bookBasicView.getPublishingHouse());
         }
     }
 
     @FXML
-    public void handleEditPersonButton(ActionEvent event) {
+    public void handleEditBookButton(ActionEvent event) {
         // can be written easier, its just for better explanation here on so many lines
-        Long id = Long.valueOf(idTextField.getText());
-        String email = emailTextField.getText();
-        String firstName = givenNameTextField.getText();
-        String lastName = familyNameTextField.getText();
-        String nickname = nicknameTextField.getText();
+        Long isbn = Long.valueOf(isbnTextField.getText());
+        String bookTitle = bookTitleTextField.getText();
+        String authorName = authorNameTextField.getText();
+        String authorSurname = authorSurnameTextField.getText();
+        String publishingHouse = publishingHouseTextField.getText();
 
         BookEditView bookEditview = new BookEditView();
-        bookEditview.setId(id);
-        bookEditview.setEmail(email);
-        bookEditview.setGivenName(firstName);
-        bookEditview.setFamilyName(lastName);
-        bookEditview.setNickname(nickname);
+        bookEditview.setIsbn(isbn);
+        bookEditview.setBookTitle(bookTitle);
+        bookEditview.setAuthorName(authorName);
+        bookEditview.setAuthorSurname(authorSurname);
+        bookEditview.setPublishingHouse(publishingHouse);
 
         bookService.editBook(bookEditview);
 
-        personEditedConfirmationDialog();
+        bookEditedConfirmationDialog();
     }
 
-    private void personEditedConfirmationDialog() {
+    private void bookEditedConfirmationDialog() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Person Edited Confirmation");
-        alert.setHeaderText("Your person was successfully edited.");
+        alert.setTitle("Book Edited Confirmation");
+        alert.setHeaderText("CHosen book was successfully edited.");
 
         Timeline idlestage = new Timeline(new KeyFrame(Duration.seconds(3), new EventHandler<ActionEvent>() {
             @Override

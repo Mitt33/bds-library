@@ -3,10 +3,18 @@ package org.but.feec.library.api;
 public class BookEditView {
 
     private Long id;
-    private String email;
-    private String givenName;
-    private String nickname;
-    private String familyName;
+    private Long isbn;
+    private String bookTitle;
+    private String authorName;
+    private String authorSurname;
+    private String publishingHouse;
+
+    public Long getIsbn() {
+        return isbn;
+    }
+    public void setIsbn(Long isbn) {
+        this.isbn = isbn;
+    }
 
     public Long getId() {
         return id;
@@ -16,45 +24,46 @@ public class BookEditView {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
+    public String getBookTitle() {
+        return bookTitle;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setBookTitle(String bookTitle) {
+        this.bookTitle = bookTitle;
     }
 
-    public String getGivenName() {
-        return givenName;
+    public String getAuthorName() {
+        return authorName;
     }
 
-    public void setGivenName(String givenName) {
-        this.givenName = givenName;
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
     }
 
-    public String getNickname() {
-        return nickname;
+    public String getAuthorSurname() {
+        return authorSurname;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setAuthorSurname(String authorSurname) {
+        this.authorSurname = authorSurname;
     }
 
-    public String getFamilyName() {
-        return familyName;
+    public String getPublishingHouse() {
+        return publishingHouse;
     }
 
-    public void setFamilyName(String familyName) {
-        this.familyName = familyName;
+    public void setPublishingHouse(String publishingHouse) {
+        this.publishingHouse = publishingHouse;
     }
 
     @Override
     public String toString() {
         return "PersonEditView{" +
-                "email='" + email + '\'' +
-                ", givenName='" + givenName + '\'' +
-                ", nickname='" + nickname + '\'' +
-                ", familyName='" + familyName + '\'' +
+                "isbn='" + isbn + '\'' +
+                ", bookTitle='" + bookTitle + '\'' +
+                ", authorName='" + authorName + '\'' +
+                ", authorSurname='" + authorSurname + '\'' +
+                ", publishingHouse='" + publishingHouse + '\'' +
                 '}';
     }
 }
