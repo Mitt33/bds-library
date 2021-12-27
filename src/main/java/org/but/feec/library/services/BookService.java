@@ -1,9 +1,6 @@
 package org.but.feec.library.services;
 
-import org.but.feec.library.api.BookBasicView;
-import org.but.feec.library.api.BookCreateView;
-import org.but.feec.library.api.BookDetailView;
-import org.but.feec.library.api.BookEditView;
+import org.but.feec.library.api.*;
 import org.but.feec.library.data.BookRepository;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
@@ -23,6 +20,12 @@ public class BookService {
 
     public List<BookBasicView> getBookBasicView() {
         return bookRepository.getBookBasicView();
+    }
+
+    public List<InjectionView> getInjectionView(String input){return bookRepository.getInjectionView(input);
+    }
+    public List<BookFilterView> getBookFilterView(String text){
+        return bookRepository.getBookFilterView(text);
     }
 
     public void createBook(BookCreateView bookCreateView) {

@@ -31,6 +31,10 @@ public class BookController {
     @FXML
     public Button refreshButton;
     @FXML
+    public Button filterButton;
+    @FXML
+    public TextField searchBar;
+    @FXML
     private TableColumn<BookBasicView, Long> personsId;
     @FXML
     private TableColumn<BookBasicView, String> bookTitle;
@@ -67,7 +71,6 @@ public class BookController {
         publishingHouse.setCellValueFactory(new PropertyValueFactory<BookBasicView, String>("publishingHouse"));
 
 
-
         ObservableList<BookBasicView> observableBookList = initializeBookData();
         systemPersonsTableView.setItems(observableBookList);
 
@@ -82,7 +85,7 @@ public class BookController {
     private void initializeTableViewSelection() {
         MenuItem edit = new MenuItem("Edit Book");
         MenuItem detailedView = new MenuItem("Detailed book view");
-        MenuItem delete = new MenuItem ("Delete book");
+        MenuItem delete = new MenuItem("Delete book");
         edit.setOnAction((ActionEvent event) -> {
             BookBasicView bookView = systemPersonsTableView.getSelectionModel().getSelectedItem();
             try {
@@ -133,7 +136,7 @@ public class BookController {
             }
         });
 
-        delete.setOnAction((ActionEvent event)-> {
+        delete.setOnAction((ActionEvent event) -> {
             BookBasicView bookBasicView = systemPersonsTableView.getSelectionModel().getSelectedItem();
             Long bookId = bookBasicView.getId();
             bookRepository.removeBook(bookId);
@@ -188,49 +191,49 @@ public class BookController {
         systemPersonsTableView.setItems(observablePersonsList);
         systemPersonsTableView.refresh();
         systemPersonsTableView.sort();
-//    }
-//    public void handleFilterButton(ActionEvent actionEvent){
-//        try {
-//            String text = searchBar.getText();
-//            System.out.println("handler" +text);
-//            FXMLLoader fxmlLoader = new FXMLLoader();
-//            fxmlLoader.setLocation(App.class.getResource("fxml/BookFilter.fxml"));
-//            Stage stage = new Stage();
-//            BooksFilterController booksFilterController = new BooksFilterController();
-//            stage.setUserData(text);
-//            booksFilterController.setStage(stage);
-//            fxmlLoader.setController(booksFilterController);
-//            Scene scene = new Scene(fxmlLoader.load(), 600, 500);
-//
-//
-//            stage.setTitle("filter");
-//            stage.setScene(scene);
-//            stage.show();
-//
-//        } catch (IOException ex) {
-//            ExceptionHandler.handleException(ex);
-//        }
-//
-//    }
-//    public void handleInjectionButton(ActionEvent actionEvent){
-//        try{
-//
-//            FXMLLoader fxmlLoader = new FXMLLoader();
-//            fxmlLoader.setLocation(App.class.getResource("fxml/injectionTraining.fxml"));
-//            Stage stage = new Stage();
-//            InjectionController injectionController = new InjectionController();
-//
-//            injectionController.setStage(stage);
-//            fxmlLoader.setController(injectionController);
-//            Scene scene = new Scene(fxmlLoader.load(), 600, 500);
-//
-//
-//            stage.setTitle("SQL Injection training");
-//            stage.setScene(scene);
-//            stage.show();
-//        }catch (IOException ex) {
-//            ExceptionHandler.handleException(ex);
-//        }
-//    }
     }
+    public void handleFilterButton(ActionEvent actionEvent){
+        try {
+            String text = searchBar.getText();
+            System.out.println("handler" +text);
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(App.class.getResource("fxml/BookFilter.fxml"));
+            Stage stage = new Stage();
+            BookFilterController bookFilterController = new BookFilterController();
+            stage.setUserData(text);
+            bookFilterController.setStage(stage);
+            fxmlLoader.setController(bookFilterController);
+            Scene scene = new Scene(fxmlLoader.load(), 600, 500);
+
+
+            stage.setTitle("filter");
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException ex) {
+            ExceptionHandler.handleException(ex);
+        }
+
+    }
+        public void handleInjectionButton (ActionEvent actionEvent){
+            try {
+
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(App.class.getResource("fxml/injectionTraining.fxml"));
+                Stage stage = new Stage();
+                InjectionController injectionController = new InjectionController();
+
+                injectionController.setStage(stage);
+                fxmlLoader.setController(injectionController);
+                Scene scene = new Scene(fxmlLoader.load(), 600, 500);
+
+
+                stage.setTitle("SQL Injection training");
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException ex) {
+                ExceptionHandler.handleException(ex);
+            }
+        }
+
 }

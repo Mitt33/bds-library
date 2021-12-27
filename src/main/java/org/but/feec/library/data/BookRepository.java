@@ -85,6 +85,54 @@ public class BookRepository {
         }
     }
 
+    public List<BookFilterView> getBookFilterView(String text){
+        System.out.println(text);
+        String filter = '%'+text+'%';
+        try (Connection connection = DataSourceConfig.getConnection();
+
+             PreparedStatement preparedStatement = connection.prepareStatement(
+                     "SELECT book_id, isbn, book_title, author_name, author_surname, date_published" +
+                             " FROM library.book b"  +
+                             " LEFT JOIN library.book_has_author ba on b.book_id=ba.book_book_id " +
+                             " LEFT JOIN library.author a on ba.author_author_id=a.author_id " +
+                             " where lower(author_surname) like lower(?) "
+             )
+
+
+//             "SELECT id_person, email, first_name, surname, nickname, city" +
+//                             " FROM bds.person p" +
+//                             " LEFT JOIN bds.address a ON p.id_address = a.id_address");
+        ) {
+            preparedStatement.setString(1,filter);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<BookFilterView> bookFilterViews = new ArrayList<>();
+            while (resultSet.next()) {
+                bookFilterViews.add(mapToBookFilterView(resultSet));
+            }
+            return bookFilterViews;
+        }
+        catch (SQLException e) {
+            throw new DataAccessException("Book basic view could not be loaded.", e);
+        }
+    }
+
+    public List<InjectionView> getInjectionView(String input){
+        String query = "SELECT id,name,surname, age from injection.user u where u.id ="+input ;
+        try (Connection connection = DataSourceConfig.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+            List<InjectionView> injectionViews = new ArrayList<>();
+            while (resultSet.next()) {
+                injectionViews.add(mapToInjectionView(resultSet));
+            }
+            return injectionViews;
+        } catch (SQLException e) {
+            throw new DataAccessException("Find all users SQL failed.", e);
+        }
+
+
+    }
+
     public void createBook(BookCreateView bookCreateView) {
         String insertPersonSQL = "begin;\n" +
                 "\t insert into library.publishing_house (publishing_house_name) values (?);\n" +
@@ -226,4 +274,24 @@ public class BookRepository {
 
         return bookDetailView;
     }
+    private InjectionView mapToInjectionView(ResultSet rs ) throws  SQLException{
+        InjectionView injectionView = new InjectionView();
+        injectionView.setId(rs.getLong("id"));
+        injectionView.setName(rs.getString("name"));
+        injectionView.setSurname(rs.getString("surname"));
+        injectionView.setAge(rs.getLong("age"));
+        return injectionView;
+    }
+
+    private BookFilterView mapToBookFilterView(ResultSet rs) throws SQLException{
+        BookFilterView bookFilterView = new BookFilterView();
+        bookFilterView.setId(rs.getLong("book_id"));
+        bookFilterView.setIsbn(rs.getLong("isbn"));
+        bookFilterView.setBookTitle(rs.getString("book_title"));
+        bookFilterView.setAuthorName(rs.getString("author_name"));
+        bookFilterView.setAuthorSurname(rs.getString("author_surname"));
+        return bookFilterView;
+    }
+
+
 }

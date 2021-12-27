@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
@@ -10,9 +9,8 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
@@ -38,16 +36,16 @@
             <items>
                 <ScrollPane prefHeight="-1.0" prefWidth="-1.0">
                     <content>
-                        <AnchorPane id="Content" maxWidth="1.7976931348623157E308" minHeight="-1.0" minWidth="-Infinity" prefHeight="517.0" prefWidth="592.0">
+                        <AnchorPane id="Content" maxWidth="1.7976931348623157E308" minHeight="-1.0" minWidth="-Infinity" prefHeight="518.0" prefWidth="590.0">
                             <children>
-                                <Label alignment="CENTER" layoutX="417.0" layoutY="21.0" prefHeight="27.0" prefWidth="147.0" style="&#10;" text="Books in Library" textAlignment="CENTER" wrapText="false">
+                                <Label alignment="CENTER" layoutX="417.0" layoutY="16.0" prefHeight="27.0" prefWidth="147.0" style="&#10;" text="Books in Library" textAlignment="CENTER" wrapText="false">
                            <font>
                                       <Font size="18.0" fx:id="x1" />
                            </font>
                            <textFill>
                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
                            </textFill></Label>
-                                <TableView fx:id="systemPersonsTableView" layoutX="78.0" layoutY="67.0" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="406.0" prefWidth="778.0" AnchorPane.leftAnchor="78.0" AnchorPane.rightAnchor="-264.0">
+                                <TableView fx:id="systemPersonsTableView" layoutX="78.0" layoutY="67.0" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="406.0" prefWidth="784.0" AnchorPane.leftAnchor="78.0" AnchorPane.rightAnchor="-268.0">
                                     <columns>
                                         <TableColumn fx:id="personsId" minWidth="75.0" prefWidth="80.00000303983688" text="id" />
                                         <TableColumn fx:id="isbn" minWidth="75.0" prefWidth="160.00001525878906" text="isbn" />
@@ -59,28 +57,14 @@
                                 </TableView>
                                 <Button fx:id="addBookButton" layoutX="78.0" layoutY="491.0" mnemonicParsing="false" onAction="#handleAddBookButton" text="Add book" />
                                 <Button fx:id="refreshButton" layoutX="166.0" layoutY="491.0" mnemonicParsing="false" onAction="#handleRefreshButton" text="Refresh" />
+                                <Button fx:id="filterButton" layoutX="253.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleFilterButton" text="SEARCH" />
+                                <TextField fx:id="searchBar" layoutX="79.0" layoutY="30.0" prefHeight="25.0" prefWidth="173.0" promptText="enter author surname" />
+                                <Button id="injectionButton" fx:id="injectionButton" layoutX="400.0" layoutY="491.0" mnemonicParsing="false" onAction="#handleInjectionButton" prefHeight="25.0" prefWidth="163.0" text="SQLInjection training" />
                             </children>
                         </AnchorPane>
                     </content>
                 </ScrollPane>
             </items>
         </SplitPane>
-        <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
-            <children>
-                <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Left status" HBox.hgrow="ALWAYS">
-                    <font>
-                        <Font size="11.0" fx:id="x3" />
-                    </font>
-                    <textFill>
-                        <Color red="0.625" green="0.625" blue="0.625" fx:id="x4" />
-                    </textFill>
-                </Label>
-                <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
-                <Label font="$x3" maxWidth="-1.0" text="Right status" textFill="$x4" HBox.hgrow="NEVER" />
-            </children>
-            <padding>
-                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-            </padding>
-        </HBox>
     </children>
 </VBox>

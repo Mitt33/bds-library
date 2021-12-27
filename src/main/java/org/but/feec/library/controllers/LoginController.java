@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -125,7 +126,7 @@ public class LoginController {
             Stage stageOld = (Stage) signInButton.getScene().getWindow();
             stageOld.close();
 
-            //stage.getIcons().add(new Image(App.class.getResourceAsStream("logos/vut.jpg")));
+            stage.getIcons().add(new Image(App.class.getResourceAsStream("images/icon.png")));
             authConfirmDialog();
 
             stage.show();
