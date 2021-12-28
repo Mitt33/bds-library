@@ -27,9 +27,11 @@ public class App extends Application {
             mainStage = loader.load();
 
 
-            primaryStage.setTitle("BDS JavaFX Library Demo");
+            primaryStage.setTitle("BDS JavaFX Library");
             Scene scene = new Scene(mainStage);
-            setUserAgentStylesheet(STYLESHEET_MODENA);
+//            setUserAgentStylesheet(STYLESHEET_MODENA);
+//            String myStyle = getClass().getResource("css/myStyle.css").toExternalForm();
+//            scene.getStylesheets().add(myStyle);
 
 
             primaryStage.getIcons().add(new Image(App.class.getResourceAsStream("images/icon.png")));

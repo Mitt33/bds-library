@@ -206,7 +206,7 @@ public class BookController {
             Scene scene = new Scene(fxmlLoader.load(), 600, 500);
 
 
-            stage.setTitle("filter");
+            stage.setTitle("Book filtered view");
             stage.setScene(scene);
             stage.show();
 

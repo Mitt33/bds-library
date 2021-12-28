@@ -117,7 +117,7 @@ public class BookRepository {
     }
 
     public List<InjectionView> getInjectionView(String input){
-        String query = "SELECT id,name,surname, age from injection.user u where u.id ="+input ;
+        String query = "SELECT id,name,surname, age from library.injection i where i.id ="+input ;
         try (Connection connection = DataSourceConfig.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {

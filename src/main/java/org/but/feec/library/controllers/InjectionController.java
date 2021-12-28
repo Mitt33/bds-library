@@ -9,7 +9,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-//import org.but.feec.library.api.BookFilterView;
+import org.but.feec.library.api.BookFilterView;
 import org.but.feec.library.api.InjectionView;
 import org.but.feec.library.api.BookBasicView;
 import org.but.feec.library.data.BookRepository;
