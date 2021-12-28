@@ -14,8 +14,12 @@ Run the project:
 $ java -jar target/bds-library-1.0.0.jar
 ```
 
-## Licenses evidence
-To view the licenses visit the licenses folder and open `dependencies.html` file
+## To see the project and external libraries licenses
+open `dependencies.md` file
+Or generate new with following command in the project root directory
+```shell
+$ ./mvnw project-info-reports:dependencies
+```
 
 ## Logs
 Logs are defined in the logback.xml file in the `src/main/resources` folder
