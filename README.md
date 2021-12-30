@@ -13,6 +13,11 @@ Run the project:
 ```shell
 $ java -jar target/bds-library-1.0.0.jar
 ```
+Use this credentials to login:
+
+Email: `kontakt1@gmail.com`
+
+Password: `heslo`
 
 ## To see the project and external libraries licenses
 open `dependencies.md` file
