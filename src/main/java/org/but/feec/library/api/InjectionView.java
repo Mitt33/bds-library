@@ -7,20 +7,20 @@ import javafx.beans.property.StringProperty;
 
 public class InjectionView {
     private final LongProperty id = new SimpleLongProperty();
-    private final LongProperty age = new SimpleLongProperty();
+    private final LongProperty salary = new SimpleLongProperty();
     private final StringProperty name = new SimpleStringProperty();
     private final StringProperty surname = new SimpleStringProperty();
 
 
     public void setId(long id) {this.id.set(id);}
-    public void setAge(long age) {this.age.set(age);}
+    public void setSalary(long salary) {this.salary.set(salary);}
     public void setName(String name) {this.name.set(name);}
     public void setSurname(String surname) {this.surname.set(surname);}
 
 
     public long getId() {return idProperty().get();}
-    public long getAge() {
-        return ageProperty().get();
+    public long getSalary() {
+        return salaryProperty().get();
     }
     public String getName() {
         return nameProperty().get();
@@ -39,8 +39,8 @@ public class InjectionView {
     public StringProperty nameProperty() {
         return name;
     }
-    public LongProperty ageProperty() {
-        return age;
+    public LongProperty salaryProperty() {
+        return salary;
     }
 }
 

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class BookRepository {
 
-    public BookAuthView findPersonByEmail(String email) {
+    public BookAuthView findMemberByEmail(String email) {
         try (Connection connection = DataSourceConfig.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "SELECT email, pwd" +
@@ -28,7 +28,7 @@ public class BookRepository {
                 }
             }
         } catch (SQLException e) {
-            throw new DataAccessException("Find person by ID with addresses failed.", e);
+            throw new DataAccessException("Find library member failed.", e);
         }
         return null;
     }
@@ -81,7 +81,7 @@ public class BookRepository {
             }
             return bookBasicViews;
         } catch (SQLException e) {
-            throw new DataAccessException("Persons basic view could not be loaded.", e);
+            throw new DataAccessException("Book basic view could not be loaded.", e);
         }
     }
 
@@ -97,11 +97,6 @@ public class BookRepository {
                              " LEFT JOIN library.author a on ba.author_author_id=a.author_id " +
                              " where lower(author_surname) like lower(?) "
              )
-
-
-//             "SELECT id_person, email, first_name, surname, nickname, city" +
-//                             " FROM bds.person p" +
-//                             " LEFT JOIN bds.address a ON p.id_address = a.id_address");
         ) {
             preparedStatement.setString(1,filter);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -117,7 +112,7 @@ public class BookRepository {
     }
 
     public List<InjectionView> getInjectionView(String input){
-        String query = "SELECT id,name,surname, age from library.injection i where i.id ="+input ;
+        String query = "SELECT id,name,surname, salary from library.injection i where i.id ="+input ;
         try (Connection connection = DataSourceConfig.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
@@ -129,7 +124,6 @@ public class BookRepository {
         } catch (SQLException e) {
             throw new DataAccessException("Find all users SQL failed.", e);
         }
-
 
     }
 
@@ -155,11 +149,7 @@ public class BookRepository {
             preparedStatement.setString(9, bookCreateView.getAuthorSurname());
 
             int affectedRows = preparedStatement.executeUpdate();
-            System.out.println(affectedRows);
 
-//            if (affectedRows == 0) {
-//                throw new DataAccessException("Creating person failed, no rows affected.");
-//            }
         } catch (SQLException e) {
             e.printStackTrace();
             throw new DataAccessException("Creating person failed operation on the database failed.");
@@ -249,7 +239,6 @@ public class BookRepository {
         return person;
     }
 
-
     private BookBasicView mapToPersonBasicView(ResultSet rs) throws SQLException {
         BookBasicView bookBasicView = new BookBasicView();
         bookBasicView.setId(rs.getLong("book_id"));
@@ -279,7 +268,7 @@ public class BookRepository {
         injectionView.setId(rs.getLong("id"));
         injectionView.setName(rs.getString("name"));
         injectionView.setSurname(rs.getString("surname"));
-        injectionView.setAge(rs.getLong("age"));
+        injectionView.setSalary(rs.getLong("salary"));
         return injectionView;
     }
 

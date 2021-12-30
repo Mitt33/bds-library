@@ -35,7 +35,7 @@ public class BookController {
     @FXML
     public TextField searchBar;
     @FXML
-    private TableColumn<BookBasicView, Long> personsId;
+    private TableColumn<BookBasicView, Long> bookId;
     @FXML
     private TableColumn<BookBasicView, String> bookTitle;
     @FXML
@@ -63,7 +63,7 @@ public class BookController {
         bookService = new BookService(bookRepository);
 //        GlyphsDude.setIcon(exitMenuItem, FontAwesomeIcon.CLOSE, "1em");
 
-        personsId.setCellValueFactory(new PropertyValueFactory<BookBasicView, Long>("id"));
+        bookId.setCellValueFactory(new PropertyValueFactory<BookBasicView, Long>("id"));
         bookTitle.setCellValueFactory(new PropertyValueFactory<BookBasicView, String>("bookTitle"));
         isbn.setCellValueFactory(new PropertyValueFactory<BookBasicView, Long>("isbn"));
         authorName.setCellValueFactory(new PropertyValueFactory<BookBasicView, String>("authorName"));
@@ -74,12 +74,12 @@ public class BookController {
         ObservableList<BookBasicView> observableBookList = initializeBookData();
         systemPersonsTableView.setItems(observableBookList);
 
-        systemPersonsTableView.getSortOrder().add(personsId);
+        systemPersonsTableView.getSortOrder().add(bookId);
 
         initializeTableViewSelection();
         loadIcons();
 
-        logger.info("PersonsController initialized");
+        logger.info("BookController initialized");
     }
 
     private void initializeTableViewSelection() {
@@ -93,7 +93,7 @@ public class BookController {
                 fxmlLoader.setLocation(App.class.getResource("fxml/BookEdit.fxml"));
                 Stage stage = new Stage();
                 stage.setUserData(bookView);
-                stage.setTitle("BDS JavaFX Edit Book");
+                stage.setTitle("bds-library Edit Book");
 
                 BookEditController controller = new BookEditController();
                 controller.setStage(stage);
@@ -120,7 +120,7 @@ public class BookController {
                 BookDetailView bookDetailView = bookService.getBookDetailView(personId);
 
                 stage.setUserData(bookDetailView);
-                stage.setTitle("BDS JavaFX book Detailed View");
+                stage.setTitle("bds-library book Detailed View");
 
                 BookDetailViewController controller = new BookDetailViewController();
                 controller.setStage(stage);
@@ -171,7 +171,7 @@ public class BookController {
             fxmlLoader.setLocation(App.class.getResource("fxml/BookCreate.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 600, 500);
             Stage stage = new Stage();
-            stage.setTitle("BDS JavaFX Create Person");
+            stage.setTitle("bds-library Create book");
             stage.setScene(scene);
 
 //            Stage stageOld = (Stage) signInButton.getScene().getWindow();
@@ -218,8 +218,7 @@ public class BookController {
         public void handleInjectionButton (ActionEvent actionEvent){
             try {
 
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(App.class.getResource("fxml/injectionTraining.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("fxml/InjectionTraining.fxml"));
                 Stage stage = new Stage();
                 InjectionController injectionController = new InjectionController();
 
@@ -228,7 +227,7 @@ public class BookController {
                 Scene scene = new Scene(fxmlLoader.load(), 600, 500);
 
 
-                stage.setTitle("SQL Injection training");
+                stage.setTitle("SQL Injection training table");
                 stage.setScene(scene);
                 stage.show();
             } catch (IOException ex) {

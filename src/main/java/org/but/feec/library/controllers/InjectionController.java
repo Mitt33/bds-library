@@ -22,7 +22,7 @@ public class InjectionController {
     @FXML
     private TableColumn<InjectionView, Long> id;
     @FXML
-    private TableColumn<InjectionView, Long> age;
+    private TableColumn<InjectionView, Long> salary;
     @FXML
     private TableColumn<InjectionView, String> name;
     @FXML
@@ -50,7 +50,7 @@ public class InjectionController {
         id.setCellValueFactory(new PropertyValueFactory<InjectionView, Long>("id"));
         name.setCellValueFactory(new PropertyValueFactory<InjectionView, String>("name"));
         surname.setCellValueFactory(new PropertyValueFactory<InjectionView, String>("surname"));
-        age.setCellValueFactory(new PropertyValueFactory<InjectionView, Long>("age"));
+        salary.setCellValueFactory(new PropertyValueFactory<InjectionView, Long>("salary"));
 
 
 

@@ -120,7 +120,7 @@ public class LoginController {
             fxmlLoader.setLocation(App.class.getResource("fxml/Books.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1050, 600);
             Stage stage = new Stage();
-            stage.setTitle("BDS JavaFX Demo App");
+            stage.setTitle("BDS Library App");
             stage.setScene(scene);
 
             Stage stageOld = (Stage) signInButton.getScene().getWindow();

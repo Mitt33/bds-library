@@ -17,49 +17,43 @@
 
 <VBox minHeight="625.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.but.feec.library.controllers.BookController">
     <children>
-        <MenuBar VBox.vgrow="NEVER">
+        <MenuBar prefHeight="22.0" prefWidth="950.0" VBox.vgrow="NEVER">
             <menus>
-                <Menu mnemonicParsing="false" text="File">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="New" />
-                        <MenuItem mnemonicParsing="false" text="Quit" />
-                    </items>
-                </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Help, I need somebody help!" />
+                        <MenuItem mnemonicParsing="false" text="No one can help you :(" />
                     </items>
                 </Menu>
             </menus>
         </MenuBar>
         <SplitPane focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
             <items>
-                <ScrollPane prefHeight="-1.0" prefWidth="-1.0">
+                <ScrollPane prefHeight="550.0" prefWidth="902.0">
                     <content>
                         <AnchorPane id="Content" maxWidth="1.7976931348623157E308" minHeight="-1.0" minWidth="-Infinity" prefHeight="518.0" prefWidth="590.0">
                             <children>
-                                <Label alignment="CENTER" layoutX="417.0" layoutY="16.0" prefHeight="27.0" prefWidth="147.0" style="&#10;" text="Books in Library" textAlignment="CENTER" wrapText="false">
+                                <Label alignment="CENTER" layoutX="461.0" layoutY="16.0" prefHeight="27.0" prefWidth="147.0" style="&#10;" text="Books in Library" textAlignment="CENTER" wrapText="false">
                            <font>
                                       <Font size="18.0" fx:id="x1" />
                            </font>
                            <textFill>
                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
                            </textFill></Label>
-                                <TableView fx:id="systemPersonsTableView" layoutX="78.0" layoutY="67.0" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="406.0" prefWidth="784.0" AnchorPane.leftAnchor="78.0" AnchorPane.rightAnchor="-268.0">
+                                <TableView fx:id="systemPersonsTableView" layoutX="78.0" layoutY="67.0" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="406.0" prefWidth="835.0" AnchorPane.leftAnchor="78.0" AnchorPane.rightAnchor="-323.0">
                                     <columns>
-                                        <TableColumn fx:id="personsId" minWidth="75.0" prefWidth="80.00000303983688" text="id" />
-                                        <TableColumn fx:id="isbn" minWidth="75.0" prefWidth="160.00001525878906" text="isbn" />
-                                        <TableColumn fx:id="bookTitle" minWidth="75.0" prefWidth="159.0" text="book title" />
-                                        <TableColumn fx:id="authorName" minWidth="75.0" prefWidth="131.0" text="author name" />
+                                        <TableColumn fx:id="bookId" minWidth="75.0" prefWidth="80.00000303983688" text="id" />
+                                        <TableColumn fx:id="isbn" minWidth="75.0" prefWidth="147.20004272460938" text="isbn" />
+                                        <TableColumn fx:id="bookTitle" minWidth="75.0" prefWidth="163.199951171875" text="book title" />
+                                        <TableColumn fx:id="authorName" minWidth="75.0" prefWidth="140.800048828125" text="author name" />
                                         <TableColumn fx:id="authorSurname" minWidth="75.0" prefWidth="131.0" text="author surname" />
-                                        <TableColumn fx:id="publishingHouse" minWidth="70.0" prefWidth="116.0" text="publishing house" />
+                                        <TableColumn fx:id="publishingHouse" minWidth="70.0" prefWidth="169.80002441406248" text="publishing house" />
                                     </columns>
                                 </TableView>
                                 <Button fx:id="addBookButton" layoutX="78.0" layoutY="491.0" mnemonicParsing="false" onAction="#handleAddBookButton" text="Add book" />
                                 <Button fx:id="refreshButton" layoutX="166.0" layoutY="491.0" mnemonicParsing="false" onAction="#handleRefreshButton" text="Refresh" />
-                                <Button fx:id="filterButton" layoutX="253.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleFilterButton" text="SEARCH" />
-                                <TextField fx:id="searchBar" layoutX="79.0" layoutY="30.0" prefHeight="25.0" prefWidth="173.0" promptText="enter author surname" />
-                                <Button id="injectionButton" fx:id="injectionButton" layoutX="400.0" layoutY="491.0" mnemonicParsing="false" onAction="#handleInjectionButton" prefHeight="25.0" prefWidth="163.0" text="SQLInjection training" />
+                                <Button fx:id="filterButton" layoutX="271.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleFilterButton" text="SEARCH" />
+                                <TextField fx:id="searchBar" layoutX="79.0" layoutY="30.0" prefHeight="26.0" prefWidth="192.0" promptText="enter author surname" />
+                                <Button id="injectionButton" fx:id="injectionButton" layoutX="426.0" layoutY="491.0" mnemonicParsing="false" onAction="#handleInjectionButton" prefHeight="25.0" prefWidth="163.0" text="SQL Injection training" />
                             </children>
                         </AnchorPane>
                     </content>

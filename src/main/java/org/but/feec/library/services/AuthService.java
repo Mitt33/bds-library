@@ -13,7 +13,7 @@ public class AuthService {
     }
 
     private BookAuthView findPersonByEmail(String email) {
-        return bookRepository.findPersonByEmail(email);
+        return bookRepository.findMemberByEmail(email);
     }
 
     public boolean authenticate(String username, String password) {

@@ -1,25 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1 ">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <TableView fx:id="systemPersonsTableView" layoutY="63.0" prefHeight="337.0" prefWidth="601.0">
+        <TableView fx:id="systemPersonsTableView" layoutX="49.0" layoutY="166.0" prefHeight="198.0" prefWidth="514.0">
             <columns>
-                <TableColumn fx:id="id" prefWidth="75.0" text="id" />
-                <TableColumn fx:id="name" prefWidth="75.0" text="name" />
-                <TableColumn fx:id="surname" prefWidth="75.0" text="surname" />
-                <TableColumn fx:id="age" prefWidth="75.0" text="age " />
+                <TableColumn fx:id="id" prefWidth="97.59998321533203" text="id" />
+                <TableColumn fx:id="name" prefWidth="113.5999755859375" text="name" />
+                <TableColumn fx:id="surname" prefWidth="123.20001220703125" text="surname" />
+                <TableColumn fx:id="salary" prefWidth="80.79998779296875" text="salary" />
 
             </columns>
         </TableView>
-        <TextField fx:id="inputField" layoutX="226.0" layoutY="26.0" />
-        <Button fx:id="confirmButton" layoutX="375.0" layoutY="26.0" mnemonicParsing="false" text="Confirm" onAction="#handleConfirmButton"  />
+        <TextField fx:id="inputField" layoutX="189.0" layoutY="115.0" prefHeight="26.0" prefWidth="187.0" promptText="enter your id to search" />
+        <Button fx:id="confirmButton" layoutX="376.0" layoutY="115.0" mnemonicParsing="false" onAction="#handleConfirmButton" text="Search" />
+      <Text layoutX="27.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Here you can search in dummy table" />
+      <Text layoutX="27.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Try to simulate SQL injection with drop table and 1=1 attack" />
+      <MenuBar layoutX="-1.0" layoutY="2.0" prefHeight="26.0" prefWidth="601.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="1; drop table library.injection;" />
+                  <MenuItem mnemonicParsing="false" text="1 or 1=1" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
     </children>
 </AnchorPane>
-
